@@ -1,0 +1,23 @@
+{
+  "name": "Ymp3",
+  "version": "1.0.0",
+  "description": "An Electron App to all the music lovers",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . --platform darwin --out ./dist ELog --overwrite",
+    "build-win32": "electron-packager . --version 1.4.1 --platform win32 --out ./dist --overwrite"
+  },
+  "repository": "https://github.com/NaichuanZhang/electron_youtube",
+  "author": "Naichuan Zhang",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  },
+  "dependencies": {
+    "electron-packager": "^8.5.0",
+    "fs": "0.0.1-security",
+    "ipc": "0.0.1",
+    "jquery": "^3.1.1"
+  }
+}
