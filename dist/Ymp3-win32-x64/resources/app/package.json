@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-packager . --platform darwin --out ./dist YMp3 --overwrite",
-    "build-win32": "electron-packager . --version 1.4.1 --platform win32 --out ./dist --overwrite"
+    "build-win32": "electron-packager . --version 1.4.1 --platform win32 --icon ./asset/YMp3.ico --out ./dist --overwrite",
+    "build-icon": "electron-packager . --platform darwin --icon ./asset/YMp3.icns --out ./dist YMp3 --overwrite"
   },
   "repository": "https://github.com/NaichuanZhang/electron_youtube",
   "author": "Naichuan Zhang",
