@@ -4,9 +4,11 @@ const saveBtn = document.getElementById('save-dialog')
 const fs = require('fs');
 const download = require('download');
 const request = require("request");
+const {clipboard} = require('electron')
 
 var target_link
 setInterval(function () {
+  document.getElementById('input_url').value = clipboard.readText() // automatically paste url after copy
   target_link = document.getElementById('input_url').value
   console.log(target_link)
 }, 1000);
