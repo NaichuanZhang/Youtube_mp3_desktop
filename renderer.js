@@ -6,18 +6,43 @@ const download = require('download');
 const request = require("request");
 const {clipboard} = require('electron')
 
+
+//update filename and target_link automatically
 var target_link
+var title_string
 setInterval(function () {
-  document.getElementById('input_url').value = clipboard.readText() // automatically paste url after copy
+  document.getElementById('input_url').value = clipboard.readText() // automatically paste url after copy -- more user friendly
   target_link = document.getElementById('input_url').value
+  var request = require("request");
+  var options = { method: 'GET',
+  url: 'http://www.youtubeinmp3.com/fetch/',
+  qs:
+   { format: 'JSON',
+     video: target_link },
+  headers:
+   { 'postman-token': '026d2f9e-e60e-702a-18d3-28c3066f6652',
+     'cache-control': 'no-cache' } };
+     request(options, function (error, response, body) {
+       if (error) throw new Error(error);
+       //console.log(JSON.parse(body).title.toString())
+       title_string = JSON.parse(body).title.toString();
+     });
   console.log(target_link)
+  console.log(title_string)
 }, 1000);
+
+
+
 saveBtn.addEventListener('click', function (event) {
   if (target_link == undefined){
     alert("empty input")
   }
-  ipc.send('save-dialog')
+  ipc.send('save-dialog', title_string)
 })
+
+function getfilename(){
+
+}
 
 //ipc function
 ipc.on('saved-file', function (event, path) {
@@ -25,7 +50,7 @@ ipc.on('saved-file', function (event, path) {
   console.log(`Path selected: ${path}`)
   console.log(path)
   choosed_path = path
-  console.log(typeof choosed_path)
+  //console.log(typeof choosed_path)
   var download_link
   //Make the api request  TODO: Modify the video string
   var video_link = target_link// this string

@@ -227,9 +227,11 @@ app.on('activate', function () {
 const ipc = require('electron').ipcMain
 const dialog = require('electron').dialog
 
-ipc.on('save-dialog', function (event) {
+ipc.on('save-dialog', function (event,arg) {
+  console.log(arg)
   const options = {
     title: 'Save a song',
+    defaultPath: arg,
     filters: [
       { name: 'Music', extensions: ['mp3'] }
     ]
