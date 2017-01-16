@@ -11,8 +11,8 @@
     https://github.com/NaichuanZhang/electron_youtube/blob/master/dist/Ymp3-win32-x64.zip
     
 # Usage 
-  - Choose your favourite youtube video and copy video url
-  - Pasete the url into the input box
+  - Choose your favorite youtube video and copy video url
+  - Paste the url into the input box
   - Click "download current music" button 
   - Choose a path and #give it a file name that it will save as (will not work properly without a name)
   - Click "Save"
