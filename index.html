@@ -3,12 +3,27 @@
   <head>
     <meta charset="UTF-8">
     <title>YMp3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <h1>Ymp3</h1>
-    <input type='string' id = "input_url" placeholder="put your url here"></input>
-    <button class="demo-button" id="save-dialog">Download Current Music</button>
-    <webview id="foo" src="https://youtube.com" style="display:inline-flex; width:640px; height:700px"></webview>
+    <div class="jumbotron" text-center>
+      <h1>YtoMP3</h1>
+      <p>People Can Die -- Music Lives On</p>
+      <form class="form-inline">
+    <div class="input-group">
+      <input type="email" class="form-control" size="50" placeholder="URL" id = "input_url"required>
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-danger" id = "save-dialog">Download Current Music</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  <div>
+    <webview id="foo" src="https://youtube.com" style="display:inline-flex; width:640px; height:600px"></webview>
+    <div>
   </body>
 
   <script>
@@ -22,4 +37,9 @@
 html {
   text-align: center;
 }
+.jumbotron {
+    background-color: #f4511e; /* Orange */
+    color: #ffffff;
+}
+</style>
 </style>

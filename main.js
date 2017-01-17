@@ -84,8 +84,8 @@ const template = [
     role: 'help',
     submenu: [
       {
-        label: 'Learn More',
-        click () { require('electron').shell.openExternal('http://electron.atom.io') }
+        label: 'How To Guide',
+        click () { require('electron').shell.openExternal('https://github.com/NaichuanZhang/electron_youtube/releases') }
       }
     ]
   }
@@ -177,7 +177,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 651, height: 833})
+  mainWindow = new BrowserWindow({width: 880, height: 989, resizable: false})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
