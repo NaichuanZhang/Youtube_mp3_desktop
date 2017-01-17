@@ -27,8 +27,8 @@ setInterval(function () {
        //console.log(JSON.parse(body).title.toString())
        title_string = JSON.parse(body).title.toString();
      });
-  console.log(target_link)
-  console.log(title_string)
+  //console.log(target_link)
+  //console.log(title_string)
 }, 1000);
 
 
