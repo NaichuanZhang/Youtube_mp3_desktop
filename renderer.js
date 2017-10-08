@@ -55,7 +55,7 @@ ipc.on('saved-file', function (event, path) {
   //Make the api request  TODO: Modify the video string
   var video_link = target_link// this string
   var options = { method: 'GET',
-    url: 'http://www.youtubeinmp3.com/fetch/',
+    url: 'http://www.convertmp3.io/fetch/',
     qs:
      { format: 'JSON',
        video: video_link },
