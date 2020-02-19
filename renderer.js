@@ -67,7 +67,7 @@ ipc.on('saved-file', function (event, path) {
       download_link =download_link.toString()
       download(download_link).then(data => {
         try {
-          fs.writeFileSync(path, data);
+          fs.writeFileSync(path, data); // this sometimes just download a html file.. so it might not work
         } catch( err ){
           console.log("failed");
         }
