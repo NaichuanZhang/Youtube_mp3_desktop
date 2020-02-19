@@ -1,48 +1,44 @@
 const ipc = require('electron').ipcRenderer
-var choosed_path
-const saveBtn = document.getElementById('save-dialog')
+const saveBtn = document.getElementById('save-dialog');
 const fs = require('fs');
 const download = require('download');
+const {clipboard} = require('electron');
 const request = require("request");
-const {clipboard} = require('electron')
 
-
-//update filename and target_link automatically
-var target_link
-var title_string
+//update filename and targetLink automatically
+var targetLink
 setInterval(function () {
-  document.getElementById('input_url').value = clipboard.readText() // automatically paste url after copy -- more user friendly
-  target_link = document.getElementById('input_url').value
-  var request = require("request");
-  var options = { method: 'GET',
-  url: 'http://www.youtubeinmp3.com/fetch/',
-  qs:
-   { format: 'JSON',
-     video: target_link },
-  headers:
-   { 'postman-token': '026d2f9e-e60e-702a-18d3-28c3066f6652',
-     'cache-control': 'no-cache' } };
-     request(options, function (error, response, body) {
-       if (error) throw new Error(error);
-       //console.log(JSON.parse(body).title.toString())
-       title_string = JSON.parse(body).title.toString();
-     });
-  //console.log(target_link)
-  //console.log(title_string)
+  document.getElementById('input_url').value = clipboard.readText() // automatically paste url after copy
+  targetLink = document.getElementById('input_url').value
 }, 1000);
 
-
+function downloadInit (targetLink) {
+  var options = {
+    method: 'GET',
+    url: 'http://www.convertmp3.io/fetch/',
+    qs: { 
+      format: 'JSON',
+      video: targetLink 
+    }
+  };
+  request(options, function(error, response, body){
+    if (error) throw new Error(error);
+    try {
+      var titleStr = JSON.parse(body.toString()).title;
+      ipc.send('save-dialog', titleStr);
+    } catch(err) {
+      alert("this music is unavaliable to download");
+    }
+  });
+}
 
 saveBtn.addEventListener('click', function (event) {
-  if (target_link == undefined){
-    alert("empty input")
+  if (targetLink == undefined){
+    alert("empty input");
+  } else {
+    downloadInit(targetLink);
   }
-  ipc.send('save-dialog', title_string)
 })
-
-function getfilename(){
-
-}
 
 //ipc function
 ipc.on('saved-file', function (event, path) {
@@ -50,29 +46,35 @@ ipc.on('saved-file', function (event, path) {
   console.log(`Path selected: ${path}`)
   console.log(path)
   choosed_path = path
-  //console.log(typeof choosed_path)
-  var download_link
-  //Make the api request  TODO: Modify the video string
-  var video_link = target_link// this string
-  var options = { method: 'GET',
+  var options = { 
+    method: 'GET',
     url: 'http://www.convertmp3.io/fetch/',
-    qs:
-     { format: 'JSON',
-       video: video_link },
-    headers:
-     { 'postman-token': 'fad29ca6-4d48-649d-8738-2f2b6d929bf6',
-       'cache-control': 'no-cache' } };
+    qs:{ 
+          format: 'JSON',
+          video: targetLink
+    },
+    headers:{ 
+      'postman-token': 'fad29ca6-4d48-649d-8738-2f2b6d929bf6',
+       'cache-control': 'no-cache' 
+    } 
+  };
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    body = JSON.parse(body)
-    //is able to get the download link from the api
-    //console.log(body.link);
-    download_link =body.link.toString()
-    download_link =download_link.toString()
-    //console.log(typeof download_link)
-    download(download_link).then(data => {
-        fs.writeFileSync(path, data);
-    });
+    console.log(response);
+    try {
+      body = JSON.parse(body)
+      download_link =body.link.toString()
+      download_link =download_link.toString()
+      download(download_link).then(data => {
+        try {
+          fs.writeFileSync(path, data);
+        } catch( err ){
+          console.log("failed");
+        }
+          
+      });
+    } catch ( err ) {
+      alert("this music is unavaliable to download")
+    }
   });
-  console.log(typeof download_link) //variable type change when the scope changes
 })
